@@ -1224,6 +1224,9 @@ impl Component for EditorView {
 
                         self.last_insert.0 = match self.keymaps.get(mode, key) {
                             KeymapResult::Matched(command) => command,
+                            KeymapResult::MatchedSequence(commands) => {
+                                commands.last().unwrap().clone()
+                            }
                             // FIXME: insert mode can only be entered through single KeyCodes
                             _ => unimplemented!(),
                         };
